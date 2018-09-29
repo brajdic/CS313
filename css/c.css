@@ -1,0 +1,31 @@
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #efefef;
+  text-align: center;
+  background:#F0F0F0;
+}
+
+body {
+	font-family: "Open Sans", helvetica, arial, sans-serif;
+	background: #FEFEFE;
+	color: #040404;
+	counter-reset: h3; 
+}
+
+/* Title Bar */
+header {
+	background: #326BA9;
+	width: 101%;
+	margin-left: -8px;
+	margin-top: -8px;
+}
+header h1 {
+	color: #FFFFFF;
+	font-size: 30px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 20px;
+}
