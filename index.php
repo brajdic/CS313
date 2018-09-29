@@ -1,10 +1,12 @@
 <?php
 session_start();
+require("model/php/user_data.php"); 
+$_SESSION["ip"] = getIP();
+$_SESSION["country"] = getCountry();
 require("view/header.php");
 require("view/nav.php");
 require("view/footer.php");
-//$_SESSION["last_visitor"] = $country; to be continued
-
+//todo hook to db
 if(filter_input(INPUT_GET, 'action')) {
  $action  = filter_input(INPUT_GET, 'action');
 }else {

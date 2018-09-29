@@ -1,7 +1,6 @@
 <?php
    session_start();
    $_SESSION['lastPage'] = $action;
-   echo($_SESSION["last_visitor"]);
 ?>
 
     <nav class ="two">
