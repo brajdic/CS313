@@ -2,6 +2,4 @@
 
 ?>
 <h1>Assignments"</h1>
-<li>
-
-</li>
+<li><a href="/assignments/03 Teach/"></a></li>
