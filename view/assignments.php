@@ -4,7 +4,7 @@
 <li>
 <?
 $assignments = scandir(.); 
-foreach($assignment as $assignments) :?>
-<a href="<?php echo($assignment)?>"></a>
+foreach($assignments as $assignment) :?>
+hello<a href="<?php echo($assignment)?>"></a>
 <?php endforeach; ?>
 </li>
