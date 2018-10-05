@@ -1,10 +1,10 @@
 <?php 
 ?>
 <h1>Assignments</h1>
-<li>
+<ul>
 <?
-$assignments = scandir(.); 
+$assignments = array_slice(scandir('./assignments'), 2); 
 foreach($assignments as $assignment) :?>
-hello<a href="<?php echo($assignment)?>"></a>
+<li><a href="<?php echo("/assignments".$assignment)?>"><?php echo($assignment)?></a></li>
 <?php endforeach; ?>
-</li>
+</ul>
