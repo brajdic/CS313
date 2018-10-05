@@ -1,5 +1,5 @@
 <?php
-    $dsn = 'pgsql:dbname=Ashton host=172.245.60.70';
+    $dsn = 'pgsql:dbname=Ashton;port=5432;host=172.245.60.70';
     $username = 'root';
     $password = 'pizza';
 
