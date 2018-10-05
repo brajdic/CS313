@@ -5,6 +5,6 @@
 <?
 $assignments = array_slice(scandir('./assignments'), 2); 
 foreach($assignments as $assignment) :?>
-<li><a href="<?php echo("/assignments".$assignment)?>"><?php echo($assignment)?></a></li>
+<li><a href="<?php echo("/assignments/".$assignment)?>"><?php echo($assignment)?></a></li>
 <?php endforeach; ?>
 </ul>

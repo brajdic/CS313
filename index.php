@@ -20,6 +20,7 @@ switch($action) {
 	include("view/assignments.php");
 	break;
 	default:
+	include("view/assignments.php");
 	break;
 }
 ?>
