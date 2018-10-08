@@ -1,6 +1,6 @@
 <?php
    session_start();
-   $_SESSION['lastPage'] = $action;
+   //$_SESSION['lastPage'] = $action;
    include 'header.php';
    include 'nav.php'; 
     if(isset($_SESSION['message']))

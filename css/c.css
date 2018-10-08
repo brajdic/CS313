@@ -29,3 +29,6 @@ header h1 {
 	vertical-align: middle;
 	margin-left: 20px;
 }
+li {
+	list-style-type: none;
+}

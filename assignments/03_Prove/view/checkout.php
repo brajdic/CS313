@@ -1,57 +1,34 @@
 <?php
-include("header.php");
-include("nav.php");
-if (!isset($_SESSION['loggedIn']))
-   header("Location: .");
-   if(isset($_SESSION['message']))
+   session_start();
+   //$_SESSION['lastPage'] = $action;
+   include 'header.php';
+   include 'nav.php'; 
+    if(isset($_SESSION['message']))
    {
       echo '<h1 class ="message">' . $_SESSION['message'] . "</h1>";
       $_SESSION['message'] = "";
-   }
-   echo $_SESSION['usrId'] . "<br>";
+   } 
 ?>
 <main>
-    <div><h1>Update your account info</h1></div>
+    <div><h1>Checkout</h1></div>
     <form action="." method="post" >
     <fieldset>
-        <legend>Account Information</legend>
-         <label>Username:</label>
-        <?php echo $_SESSION['username'];?>
-        <br>
-        <label>E-Mail:</label>
-        <input type="text" name="email" 
-               placeholder="<?php echo $_SESSION['email'];?>" value ="" required>
-       <br>
-        <label>Password:</label>
-        <input type="password" name="password" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <br>
-        <label>Verify Password:</label>
-        <input type="password" name="vPassword" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="must match password" required>
-        <br>
-    </fieldset>
-    <fieldset>
-        <legend>Contact Information</legend>
-        <label>First Name:</label>
+        <legend>Billing Information</legend>
+        <label>Name on card:</label>
         <input type="text" name="firstname" 
-               placeholder="<?php echo $_SESSION['firstName'];?>" value="" required>
+               value="<?php echo $_SESSION['username'];?>" required>
         <br>
-        <label>Last Name:</label>
-        <input type="text" name="lastname" 
-               placeholder="<?php echo $_SESSION['lastName'];?>" value="" required>
-        <br>
-        <label>Address:</label>
+        <label>Street address:</label>
         <input type="text" name="address" 
-               placeholder="<?php echo $_SESSION['address'];?>" value="" required>
+               value="<?php echo $_SESSION['address'];?>" required>
         <br>
         <label>City:</label>
         <input type="text" name="city" 
-               placeholder="<?php echo $_SESSION['city'];?>" value="" required>
+               value="<?php echo $_SESSION['city'];?>" required>
         <br>
         <label>State:</label>
         <select name ="state" required>
-        <option value="<?php echo $_SESSION['state']; ?>"><?php echo $_SESSION['state'];?></option>
+    <option value="<?php echo $_SESSION['state']; ?>"><?php echo $_SESSION['state'];?></option>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -107,21 +84,16 @@ if (!isset($_SESSION['loggedIn']))
         <br>
         <label>ZIP Code:</label>
         <input type="text" name="zipcode" 
-               placeholder="<?php echo $_SESSION['zip'];?>" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" value="" required>
+               value="<?php echo($_SESSION['zip']); ?>" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" placeholder="12345">
        <br>
-        <label>Phone Number:</label>
-        <input type="text" name="phonenumber" 
-               placeholder="<?php echo $_SESSION['phone'];?>" pattern=".{10}" maxlength ="10" title="Please follow the format: 1112221234" value="" required>
-        <br>
     </fieldset>
     <fieldset>
-        <legend>Update profile</legend>
+        <legend>Finish Payment</legend>
         <label>&nbsp;</label>
-        <input type="submit" value="Update"><br>
-        <input type="hidden" name="action" value="updateMyProfile">
+        <input type="submit" value="Purchase">
+		<input type="hidden" name="action" value="confirm">
+		<button type="cancel" onclick="window.location='./?action=viewCart';return false;">Back to cart</button>
     </fieldset>
     </form>
 </main>
 <?php include 'footer.php'; ?>        
-
-

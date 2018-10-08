@@ -9,7 +9,7 @@ require("view/footer.php");
 //todo hook to db
 if(filter_input(INPUT_GET, 'action')) {
  $action  = filter_input(INPUT_GET, 'action');
-}else {
+} else {
    $action = filter_input(INPUT_POST, 'action');
 }
 switch($action) {
@@ -19,8 +19,15 @@ switch($action) {
 	case 'assignments':
 	include("view/assignments.php");
 	break;
+	case '03_Teach';
+	header("Location:./assignments/03_Teach/index.php");
+	break;
+	case '03_Prove';
+	header("Location:./assignments/03_Prove/");
+	break;
 	default:
 	include("view/assignments.php");
+	include("view/catfacts.php");
 	break;
 }
 ?>

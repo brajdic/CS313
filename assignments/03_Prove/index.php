@@ -7,7 +7,6 @@ require('model/product_db.php');
 require('model/category_db.php');
 require('model/users_db.php');
 require('model/cart_db.php');
-//declare variables
 if(!isset($_SESSION['cartNumber']))
 {
    $cartNumber = 0;
@@ -64,9 +63,11 @@ switch($action)
    }
    // is true if registerUser worked
    else if ($results = registerUser($firstname, $lastname, $email, $password, $phonenumber, $zipcode, $state, $city, $address, $regusername)) {
-    $_SESSION['message'] = "You are now registered, $regusername.<br>
-                              You may now login.";
-      header("Location: ?action=" . $_SESSION['lastPage']);
+    //$_SESSION['message'] = "You are now registered, $regusername.<br>
+                            //You may now login.";
+      //header("Location: ?action=" . $_SESSION['lastPage']);
+	  $username = $regusername;
+	  goto login;
 }
    // registerUser did not work
     else {
@@ -74,7 +75,6 @@ switch($action)
                               Please try again.";
       header("Location: ?action=" . $_SESSION['lastPage']);
    }
-   //include("view/register.php");
    exit();
    break;
    //show homepage
@@ -86,7 +86,7 @@ switch($action)
    case 'Logout':
       session_destroy();
       header("Location: ?action=" . $_SESSION['lastPage']);
-die;
+	  die;
       break;
    case 'Tops':
     $category_ID = 1; 
@@ -118,6 +118,7 @@ die;
     $products = getProduct($product_id);
    if ($products != null)
    	include("view/product_view.php");
+    $_SESSION['lastPage'] = $action;
    break;
     case 'registerPage':
     //header("Location: view/register.php");
@@ -127,10 +128,9 @@ die;
       $username = filter_input(INPUT_POST, 'username');
       $password = filter_input(INPUT_POST, 'password');
       $password = hash('sha256', $password);
+	  login:
       $user = login($username);
-      if($password == $user['usrPasswd'])
-      //if(password_verify($password, $user['usrPasswd']))
-      {
+      if($password == $user['usrPasswd']) {
          $_SESSION['loggedIn'] = true;
          $_SESSION['username'] = $user['usrName'];
          $_SESSION['userID'] = $user['usrId'];
@@ -153,20 +153,12 @@ die;
                $cartNumber += $items['quantity'];
             }
             $_SESSION['cartNumber'] = $cartNumber;
-           header("Location: ?action=" . $_SESSION['lastPage']);
+            header("Location: ?action=" . $_SESSION['lastPage']);
          exit();     
 } else {
 $error = "<br><strong>Please check the login information is valid and try again.</strong><br><br>
 Redirecting in 5 seconds...";
 }
-   break;
-   case 'test':
-   $onSale = filter_input(INPUT_POST, 'salePrice');
-   $product_id = filter_input(INPUT_POST, 'product_id');
-   echo "onSale is: " . $onSale . "<br>";
-   echo "Product_id is: ". $product_id . "<br>";
-   changePrice($onSale, $product_id);
-   header('Location: ?action=' . $product_id);
    break;
    case 'addCart':
       $product_id = filter_input(INPUT_POST, 'product_id');
@@ -175,18 +167,16 @@ Redirecting in 5 seconds...";
       foreach($cart as $items) {
 	if ($items['productID'] == $product_id) {
 		$hasItem = true;
-		updateQuantity($items['productID'], $items['usrId'], $items['quantity'] + 1);
+		updateQuantity($items['productID'], $items['usrId'], $items['quantity'] + 1); 
             	$cartNumber++;
             	//todo actually count them..
             	$_SESSION['cartNumber'] = $cartNumber;
                 header("Location: ?action=" . $_SESSION['lastPage']);
-                $_SESSION['message'] = "Product added to cart.";
+                $_SESSION['message'] = "Updated quantity";
 	}
       }
-      if($hasItem == false)
-      {
-         if(addToCart($product_id, $_SESSION['userID']))
-         {
+      if($hasItem == false) {
+         if(addToCart($product_id, $_SESSION['userID'])) {
             $cartNumber++;
             //todo actually count them..
             $_SESSION['message'] = "Product added to cart.";
@@ -217,6 +207,15 @@ Redirecting in 5 seconds...";
          $error = "We're sorry, there apprears to be a problem..";
       }
    break;
+   case 'checkout':
+	include("view/checkout.php");
+   break;
+   case 'confirm':
+   $cart = getProductsByCart($_SESSION['userID']);
+   $_SESSION['cartNumber'] = 0;
+	include("view/confirm.php");
+	removeAllFromCart($_SESSION['userID']);
+   break;
    case 'viewCart':
    $cart = getProductsByCart($_SESSION['userID']);
 
@@ -225,58 +224,9 @@ Redirecting in 5 seconds...";
    {
       $total = number_format($total, 2);
    } else {
-     //header("Location: http://www.google.com");
-     //$error = "We're sorry, there apprears to be a problem..";
+    
    }
    include("view/cart_list.php");
-   break;
-   //user profile
-   case 'myProfile':
-   include("view/myProfile_view.php");
-   break;
-   //update the user's profile
-   case 'updateMyProfile':
-   $firstname = filter_input(INPUT_POST, 'firstname');
-   $lastname = filter_input(INPUT_POST, 'lastname');
-   $email = filter_input(INPUT_POST, 'email');
-   $password = filter_input(INPUT_POST, 'password');
-   $vPassword = filter_input(INPUT_POST, 'vPassword');
-   $phonenumber = filter_input(INPUT_POST, 'phonenumber');
-   $zipcode = filter_input(INPUT_POST, 'zipcode');
-   $state = filter_input(INPUT_POST, 'state');
-   $city = filter_input(INPUT_POST, 'city');
-   $address = filter_input(INPUT_POST, 'address');
-   //Validate inputs
-   if(empty($firstname)   || empty($lastname) || empty($email) || empty($password) ||
-      empty($phonenumber) || empty($zipcode)  || empty($state) || empty($city) || empty($address) || empty($vPassword)) 
-   {
-      $error = "<strong>Please enter valid data in all fields.</strong>";
-   } 
-   else if($vPassword != $password) {
-      $_SESSION['message'] = "<strong>The passwords did not match.</strong>";
-      header("Location: ?action=" . $_SESSION['lastPage']); 
-      } else {
-      $password = hash('sha256', $password);
-      if(updateProfile($firstname, $lastname, $email, $password, $phonenumber, $zipcode, $state, $city, $address, $_SESSION['userID']))
-      {
-         $_SESSION['firstName'] = $firstname;
-         $_SESSION['lastName'] = $lastname;
-         $_SESSION['city'] = $city;
-         $_SESSION['state'] = $state;
-         $_SESSION['phone'] = $phonenumber;
-         $_SESSION['type'] = $zipcode;
-         $_SESSION['email'] = $email;
-         $_SESSION['address'] = $address;
-         $_SESSION['zip'] = $zipcode;
-         $_SESSION['message'] = "Account information has been updated, " . $_SESSION['username']. '.<br>';
-      header("Location: ?action=" . $_SESSION['lastPage']);
-      }
-      
-}
-   include("view/myProfile.php");
-   break;
-   case 'video':
-   include("view/video.php");
    break;
 }
   if(isset($error))

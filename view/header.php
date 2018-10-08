@@ -13,6 +13,7 @@ session_start();
 <body>
 <header>
 <a href="."><img src="images/byu.png" alt="BYU-Idaho logo"></a>
-</div>
 </header>
+
+
 

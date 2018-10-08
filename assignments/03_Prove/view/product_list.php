@@ -8,7 +8,7 @@ session_start();
    $_SESSION['message'] = "";
 ?>
 <main>
-    <?php foreach($products as $product) : ?>
+    <?php foreach($products as $product) : //list the products ?>
             <ul class="list">
                <br>
                 <br>
@@ -24,6 +24,25 @@ session_start();
                         echo "<div>$" . $product['listPrice'] . "</div>";
                         else 
                         echo "<div>$" . $product['salePrice'] . "</div>";
+						//add button for product if user is logged in
+						echo ('<form action="." method="post">
+							<div>
+							<ul>
+							<input type="submit" value="Add to cart">
+							<input type="hidden" name="product_id" value = ');
+							echo ($product['productID'] . '>');
+							echo('<input type="hidden" name="user_id" value = ');
+							echo $_SESSION['userID'];
+							echo('>');
+							echo('<input type="hidden" name="action" value= ');
+							if(isset($_SESSION['loggedIn'])) 
+                            echo ('addCart>'); 
+                            else 
+                            echo ('registerPage>');
+							echo('</ul>
+							</div>
+							</form>');
+						//stop
                         ?>
                         <br>
             </ul>

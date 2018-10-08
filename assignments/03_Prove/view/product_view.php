@@ -27,7 +27,7 @@
       <input type="hidden" name="product_id" value = "<?php if(isset($_SESSION['loggedIn'])) 
        echo $products['productID']; ?>">
       <input type="hidden" name="user_id" value = "<?php echo $_SESSION['userID']; ?>">
-      <input type="hidden" name="action" value= <?php if(isset($_SESSION['loggedIn'])) 
+      <input type="hidden" name="action" value = <?php if(isset($_SESSION['loggedIn'])) 
                                                echo "addCart"; 
                                                else 
                                                echo "registerPage"?>>

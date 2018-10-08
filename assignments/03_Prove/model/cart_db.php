@@ -2,13 +2,14 @@
 
 function addToCart($product_id, $user_id) {
 global $db;
-$sql = 'INSERT INTO cart (productID, usrID)
-                    VALUES (:product_id, :user_id)';
-$statement = $db->prepare($sql);
+$query = 'INSERT INTO cart (productID, usrID)
+        VALUES (:product_id, :user_id)';
+$statement = $db->prepare($query);
 $statement->bindValue(':product_id', $product_id);
 $statement->bindValue(':user_id', $user_id);
 $results = $statement->execute();
 $statement->closeCursor();
+$_SESSION['message'] = $results;
 return $results;
 }
 
@@ -18,6 +19,16 @@ function removeFromCart($product_id) {
               WHERE productID = :product_id';
     $statement = $db->prepare($query);
     $statement->bindValue(':product_id', $product_id);
+    $success = $statement->execute();
+    $statement->closeCursor(); 
+    return $success;   
+}
+function removeAllFromCart($user_id) {
+    global $db;
+    $query = 'DELETE FROM cart
+              WHERE usrID = :user_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":user_id", $user_id);
     $success = $statement->execute();
     $statement->closeCursor(); 
     return $success;   

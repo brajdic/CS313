@@ -10,7 +10,16 @@ session_start();
    $_SESSION['message'] = "";
 ?>
 <main>
-   <div><h1>Your cart: <?php echo $_SESSION['cartNumber']; ?></h1></div>
+   <div>
+   <h1>
+   <?php 
+	if(!empty($total))
+	echo("Your cart: " . $_SESSION['cartNumber']); 
+    else
+	echo("Your cart is empty!");
+	?>
+	</h1>
+   </div>
     <?php foreach($cart as $items) : ?>
             <li><div>
                 <br>
@@ -30,9 +39,20 @@ session_start();
             <?php endforeach; ?>
       </main>
            <hr>
-      <div><h1><?php if(!empty($total)) 
-               echo "Your total is: $" . $total; ?></h1></div>
-      </form>           
+		<div>
+		<h1>
+		<?php 
+		//display checkout button and total
+		if(!empty($total)) {
+			echo ("Your total is: $" . $total . "<br>" . '<form action="." method="post">
+      <input type="submit" value="Checkout">
+      <input type="hidden" name="action" value="checkout">
+      </form>'); 
+		}
+		   ?>
+		</h1>
+		</div>	
+      </form>	  
 <?php
 include("footer.php");
 ?>

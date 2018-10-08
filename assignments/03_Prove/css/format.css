@@ -2,10 +2,6 @@ html {
    position: relative;
    min-height: 100%;
 }
-
-body {
-   background-color: white;
-}
 h1 {
    color: black;
 }
@@ -22,13 +18,7 @@ h1.error {
 hr {
     color: black;
     margin-top: 30px;
-    /*so you can see it in demo */
     width: 100%
-}
-section.image:before {
-    content:url(../images/banner.jpeg);
-    position: absolute;
-    width: 100%;
 }
 div {
  text-align: center;
@@ -42,60 +32,43 @@ text-align:left;
 p {
 text-align: right;
 }
-
+p.nav {
+position: absolute;
+right: 0;
+top: 0;
+left: 100;
+background-color: #FCFFFF;
+}
 header {
-    height:150px;
-    border:1px solid #CCC;
-    width:100%;
-    margin:0px auto;
-    background:#F0F0F0;
+background: #326BA9;
+width: 101%;
+margin-left: -8px;
+margin-top: -8px;
 }
 footer {
-    position: relative;
-    width: 100%;
-    margin-top: 0px; /* negative value of footer height */
-    height: 40px;
-    clear: both;
-    background:#F0F0F0;
+position: absolute;
+right: 0;
+bottom: 0;
+left: 0;
+background-color: #efefef;
+text-align: center;
+background:#F0F0F0;
 }
 li {
-
+  list-style: none;
 }
 li.nav {
 display:inline;
 padding: 25px;
 margin: 15px;
 }
-ul {
-
-}
 ul.list {
 float: left;
 list-style-position: outside;
 margin-left: 1em;
+list-style: none;
 }
 nav.two {
 text-align: center;
-}
-img.banner {
-    height:94px;
-    width: 1275px; 
-}
-@media screen and (max-width:480px) {
-     header, nav, body, footer {
-        width: 40%;
-        font-size: 40%;
-        margin-left: 25%;
-    }
-    li.nav {
-        position: static;
-        text-align: left;
-        font-size: 10%;
-        position: static;
-        margin-top: -15%;
-        margin-right: 50%;
-        margin-left: -12%;
-        color: red;
-    } 
 }
 
