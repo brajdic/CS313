@@ -1,0 +1,74 @@
+html {
+   position: relative;
+   min-height: 100%;
+}
+h1 {
+   color: black;
+}
+h1.message {
+   color: red;
+}
+h1.error {
+  color:red;
+  font-size:250%;
+}
+.center {
+   text-align:center;
+}
+hr {
+    color: black;
+    margin-top: 30px;
+    width: 100%
+}
+div {
+ text-align: center;
+}
+nav.one {
+top: 100px;
+}
+p.error {
+text-align:left;
+}
+p {
+text-align: right;
+}
+p.nav {
+position: absolute;
+right: 0;
+top: 0;
+left: 100;
+background-color: #FCFFFF;
+}
+header {
+background: #326BA9;
+width: 101%;
+margin-left: -8px;
+margin-top: -8px;
+}
+footer {
+position: absolute;
+right: 0;
+bottom: 0;
+left: 0;
+background-color: #efefef;
+text-align: center;
+background:#F0F0F0;
+}
+li {
+  list-style: none;
+}
+li.nav {
+display:inline;
+padding: 25px;
+margin: 15px;
+}
+ul.list {
+float: left;
+list-style-position: outside;
+margin-left: 1em;
+list-style: none;
+}
+nav.two {
+text-align: center;
+}
+
