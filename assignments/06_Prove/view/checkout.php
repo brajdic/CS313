@@ -1,8 +1,6 @@
 <?php
    session_start();
    //$_SESSION['lastPage'] = $action;
-   if (isset($_SESSION['loggedIn']))
-   header("Location: .");
    include 'header.php';
    include 'nav.php'; 
     if(isset($_SESSION['message']))
@@ -12,48 +10,25 @@
    } 
 ?>
 <main>
-    <div><h1>Register an account with us</h1></div>
+    <div><h1>Checkout</h1></div>
     <form action="." method="post" >
     <fieldset>
-        <legend>Account Information</legend>
-         <label>Username:</label>
-        <input type="text" name="regusername" 
-               value="" pattern="[a-z, A-Z, 1-9].{5,}" title ="Username must be at least 6 characters long." required />
-        <br>
-        <label>E-Mail:</label>
-        <input type="email" name="email" 
-               value="" placeholder="example@example.com" required>
-       <br>
-        <label>Password:</label>
-        <input type="password" name="password" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" require>
-        <br> 
-        <label>Verify Password:</label>
-        <input type="password" name="vPassword" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="must match password" required>
-        <br>
-    </fieldset>
-    <fieldset>
-        <legend>Contact Information</legend>
-        <label>First Name:</label>
+        <legend>Billing Information</legend>
+        <label>Name on card:</label>
         <input type="text" name="firstname" 
-               value="" required>
+               value="<?php echo $_SESSION['username'];?>" required>
         <br>
-        <label>Last Name:</label>
-        <input type="text" name="lastname" 
-               value="" required>
-        <br>
-        <label>Address:</label>
+        <label>Street address:</label>
         <input type="text" name="address" 
-               value="" required>
+               value="<?php echo $_SESSION['address'];?>" required>
         <br>
         <label>City:</label>
         <input type="text" name="city" 
-               value="" required>
+               value="<?php echo $_SESSION['city'];?>" required>
         <br>
         <label>State:</label>
         <select name ="state" required>
-        <option selected disabled>Select state</option>
+    <option value="<?php echo $_SESSION['state']; ?>"><?php echo $_SESSION['state'];?></option>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -109,17 +84,15 @@
         <br>
         <label>ZIP Code:</label>
         <input type="text" name="zipcode" 
-               value="" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" placeholder="12345">
+               value="<?php echo($_SESSION['zip']); ?>" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" placeholder="12345">
        <br>
-        <label>Phone Number:</label>
-        <input type="text" name="phonenumber" 
-               value="" pattern=".{10}" placeholder="1112221234" maxlength ="10" title="Please follow the format: 1112221234">
-        <br>
     </fieldset>
     <fieldset>
-        <legend>Submit Registration</legend>
+        <legend>Finish Payment</legend>
         <label>&nbsp;</label>
-        <input type="submit" name="action" value="Register"><br>
+        <input type="submit" value="Purchase">
+		<input type="hidden" name="action" value="confirm">
+		<button type="cancel" onclick="window.location='./?action=viewCart';return false;">Back to cart</button>
     </fieldset>
     </form>
 </main>

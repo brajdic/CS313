@@ -25,7 +25,7 @@ session_start();
                         else 
                         echo "<div class='sale'>$" . $product['salePrice'] . "</div>";
 						//add button for product if user is logged in
-						echo ('<form action="." method="post">
+						echo ('<br><form action="." method="post">
 							<div>
 							<ul>
 							<input type="submit" value="Add to cart">

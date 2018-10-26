@@ -1,6 +1,8 @@
 <?php
    session_start();
    //$_SESSION['lastPage'] = $action;
+   if (isset($_SESSION['loggedIn']))
+   header("Location: .");
    include 'header.php';
    include 'nav.php'; 
     if(isset($_SESSION['message']))
@@ -16,7 +18,7 @@
         <legend>Account Information</legend>
          <label>Username:</label>
         <input type="text" name="regusername" 
-               value="" pattern="[a-z, A-Z, 1-9].{6,}" title ="Username must be at least 6 characters long." required />
+               value="" pattern="[a-z, A-Z, 1-9].{5,}" title ="Username must be at least 6 characters long." required />
         <br>
         <label>E-Mail:</label>
         <input type="email" name="email" 

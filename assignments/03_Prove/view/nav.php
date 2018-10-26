@@ -4,6 +4,6 @@ session_start();
 ?>
 </header>
     <nav>
-        <li class ="nav"><a href=".">All</a></li>
+        <li class ="nav"><a href=".">All</a></li> 
 </nav>
 <hr>

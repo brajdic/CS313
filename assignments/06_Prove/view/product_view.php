@@ -37,14 +37,20 @@
        <div><ul>
       <?php if(isset($_SESSION['admin'])) 
       echo 
-      '<input type="radio" name="salePrice" value="0">Full Price
-      <br>
-      <input type="radio" name="salePrice" value="1">On Sale
-      <br>
-      <input type="submit" value="Submit">';
+      '<fieldset><legend>Admin Product Panel</legend>
+	  <br>
+	  <label>List Price</label>
+        <select name="salePrice" required>
+		<option value="0">Full Price</option>
+		<option value="1">On Sale</option>
+		</select>
+		<br>
+		<br>
+		<input type="submit" value="Submit">
+		</fieldset>';
       ?>
       <input type="hidden" name="product_id" value = "<?php echo $products['productID']; ?>">
-      <input type="hidden" name="action" value="test">
+      <input type="hidden" name="action" value="listPrice">
       </ul></div>
       </form>
 <?php 

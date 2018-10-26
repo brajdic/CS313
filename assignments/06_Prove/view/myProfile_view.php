@@ -1,59 +1,57 @@
 <?php
-   session_start();
-   //$_SESSION['lastPage'] = $action;
-   if (isset($_SESSION['loggedIn']))
+include("header.php");
+include("nav.php");
+if (!isset($_SESSION['loggedIn']))
    header("Location: .");
-   include 'header.php';
-   include 'nav.php'; 
-    if(isset($_SESSION['message']))
+   if(isset($_SESSION['message']))
    {
       echo '<h1 class ="message">' . $_SESSION['message'] . "</h1>";
       $_SESSION['message'] = "";
-   } 
+   }
+   echo $_SESSION['usrId'] . "<br>";
 ?>
 <main>
-    <div><h1>Register an account with us</h1></div>
+    <div><h1>Update your account info</h1></div>
     <form action="." method="post" >
     <fieldset>
         <legend>Account Information</legend>
          <label>Username:</label>
-        <input type="text" name="regusername" 
-               value="" pattern="[a-z, A-Z, 1-9].{5,}" title ="Username must be at least 6 characters long." required />
+        <?php echo $_SESSION['username'];?>
         <br>
         <label>E-Mail:</label>
-        <input type="email" name="email" 
-               value="" placeholder="example@example.com" required>
+        <input type="text" name="email" 
+               placeholder="<?php echo $_SESSION['email'];?>" value ="" required>
        <br>
-        <label>Password:</label>
+        <label>New Password:</label>
         <input type="password" name="password" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" require>
-        <br> 
+               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <br>
         <label>Verify Password:</label>
         <input type="password" name="vPassword" 
-               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="must match password" required>
+               value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title ="Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="must match new password" required>
         <br>
     </fieldset>
     <fieldset>
         <legend>Contact Information</legend>
         <label>First Name:</label>
         <input type="text" name="firstname" 
-               value="" required>
+               placeholder="<?php echo $_SESSION['firstName'];?>" value="" required>
         <br>
         <label>Last Name:</label>
         <input type="text" name="lastname" 
-               value="" required>
+               placeholder="<?php echo $_SESSION['lastName'];?>" value="" required>
         <br>
         <label>Address:</label>
         <input type="text" name="address" 
-               value="" required>
+               placeholder="<?php echo $_SESSION['address'];?>" value="" required>
         <br>
         <label>City:</label>
         <input type="text" name="city" 
-               value="" required>
+               placeholder="<?php echo $_SESSION['city'];?>" value="" required>
         <br>
         <label>State:</label>
         <select name ="state" required>
-        <option selected disabled>Select state</option>
+        <option value="<?php echo $_SESSION['state']; ?>"><?php echo $_SESSION['state'];?></option>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -109,18 +107,21 @@
         <br>
         <label>ZIP Code:</label>
         <input type="text" name="zipcode" 
-               value="" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" placeholder="12345">
+               placeholder="<?php echo $_SESSION['zip'];?>" pattern="[^a-z\x22]+" maxlength ="5" title="Insert a valid zip code" value="" required>
        <br>
         <label>Phone Number:</label>
         <input type="text" name="phonenumber" 
-               value="" pattern=".{10}" placeholder="1112221234" maxlength ="10" title="Please follow the format: 1112221234">
+               placeholder="<?php echo $_SESSION['phone'];?>" pattern=".{10}" maxlength ="10" title="Please follow the format: 1112221234" value="" required>
         <br>
     </fieldset>
     <fieldset>
-        <legend>Submit Registration</legend>
+        <legend>Update profile</legend>
         <label>&nbsp;</label>
-        <input type="submit" name="action" value="Register"><br>
+        <input type="submit" value="Update"><br>
+        <input type="hidden" name="action" value="updateMyProfile">
     </fieldset>
     </form>
 </main>
 <?php include 'footer.php'; ?>        
+
+
