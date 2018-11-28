@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple Chat Box</title>
+<link rel="stylesheet" type="text/css" href="c.css">
+<script src ="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src ="/socket.io/socket.io.js"></script>
+<script>
+$(function() {
+		var socket = io.connect();
+		var $chatbox = $('#chatbox');
+		var $message = $('#message');
+		var $chat = $('#chat');
+		
+		$chatbox.submit(function(error) {
+			error.preventDefault();
+			socket.emit('message', $message.val());
+			$message.val('');
+		});
+		socket.on('new message',function(data) {
+			$chat.append('<div class="chat">' + data.msg + '</div>');
+		});
+	});
+</script>
+</head>
+<body>
+<h1>Simple Chat box ♥</h1>
+<div class="chat" id="chat"></div>
+<br>
+<form id="chatbox">
+<textarea rows="4" id="message" cols="50" placeholder="Enter text here..."></textarea>
+<br>
+<input type="submit" value="Send">
+</form>
+</body>
+</html>
