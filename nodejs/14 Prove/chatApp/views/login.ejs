@@ -1,0 +1,29 @@
+<!Doctype html>
+<html>
+<head>
+<title>Login Panel</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script>
+ $(document).ready(function(){
+var username, password;
+ $("#submit").click(function(){
+username = $("#username").val();
+password = $("#password").val();
+$.post("http://justemma.ddns.net:4444/check", {
+username: username,
+passwd: password
+	}, function(data) {    
+		if(data==='done') {
+			window.location.href="/";
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<input type="text" placeholder="Username" id="username"><br />
+<input type="password" placeholder="Password" id="password"><br />
+<input type="button" value="Submit" id="submit">
+ </body>
+</html>
