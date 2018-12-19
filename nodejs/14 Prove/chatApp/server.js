@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 const path = require('path');
+var empty = require('is-empty');
 var http = require('http').createServer(app);
 var phpExpress = require('php-express')({
   binPath: 'php'
@@ -35,16 +36,16 @@ app
 	//check the user input
 	.post('/check',function(req,res){
 	req.session.username = req.body.username;
-	req.session.password = req.body.psswd;
-	req.session.login = req.body.login;
-	//logic to see if the user has an account in the database
-	//login = true; // a function call is needed here
-	
-	res.end('done');
+	req.session.passwd = req.body.passwd;
+	//check if user is logged in currently
+	if(empty(req.session.username) || empty(req.session.passwd)) 
+		login = false;
+	else 
+		login = true;
+	res.end('ok');
 	})
 	//the chat application
 	.get('/', function(req, res) {	
-	//check if user is logged in currently
 	if(!login) {
 		res.writeHead(302, {
 		'Location': 'login'

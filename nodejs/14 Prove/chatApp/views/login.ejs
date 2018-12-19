@@ -5,15 +5,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 <script>
  $(document).ready(function(){
-var username, password;
+var username, passwd;
  $("#submit").click(function(){
 username = $("#username").val();
-password = $("#password").val();
+passwd = $("#passwd").val();
 $.post("http://justemma.ddns.net:4444/check", {
 username: username,
-passwd: password
+passwd: passwd
 	}, function(data) {    
-		if(data==='done') {
+		if(data ==='ok') {
 			window.location.href="/";
 			}
 		});
@@ -23,7 +23,7 @@ passwd: password
 </head>
 <body>
 <input type="text" placeholder="Username" id="username"><br />
-<input type="password" placeholder="Password" id="password"><br />
+<input type="password" placeholder="Password" id="passwd"><br />
 <input type="button" value="Submit" id="submit">
  </body>
 </html>

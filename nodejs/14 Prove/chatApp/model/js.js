@@ -14,22 +14,10 @@ connection.connect(function(error) {
 		console.log('Connected to DB');
 });
 
-
-exports.getUserBio = function (userName) {
-connection.query("SELECT userBio FROM users WHERE userName =" + userName, function(error, rows) {
+exports.getUser = function (username) {
+connection.query("SELECT * FROM users WHERE userName =" + username, function(error, rows) {
 	if(error)
-		console.log('Error in sql');
-	else
-		console.log(rows);
-		
-	}	
-)}
-
-
-exports.getUser = function (username, passwd) {
-connection.query("SELECT * FROM users WHERE username =" + username + "AND password = " + passwd, function(error, rows) {
-	if(error)
-		console.log('Error in sql');
+		console.log("Error in SQL " + username);
 	else
 		console.log(rows);
 		
